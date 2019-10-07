@@ -1,49 +1,288 @@
 <!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="NER on Insee publications" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+	<title>Soutenance - Elaboration d'un service de reconnaissance d'entités nommées dans les publications de l'Insee</title>
 
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+	<link rel="icon" href="resources/images/Logo_insee.png">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/custom.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai.css">
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/monokai.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section>
+			<h2>Elaboration d'un service de reconnaissance d'entités nommées dans les publications de l'Insee</h2>
+			<p>Par Rémy Zirnheld,</p>
+			<table>
+				<tr>
+					<td>
+						<p>Conseillère de stage : <br> Amel Bouzeghoub</p>
+						<img src="resources/images/tsp-logo.png" alt="Logo TSP" width="140">
+					</td>
+					<td></td>
+					<td>
+						<p>Directeur de stage : <br> Franck Cotton</p>
+						<img src="resources/images/Logo_insee.png" alt="Logo Insee" width="120">
+					</td>
+				</tr>
+			</table>
+		</section>
 
-		<script src="js/reveal.js"></script>
+		<section>
+			<section>
+				<h1>Le sujet</h1>
+			</section>
+			<section>
+				<h2>Traitement du langage naturel...</h2>
+				<p>... ou <b>NLP</b> pour <b>N</b>atural <b>L</b>anguage <b>P</b>rocessing</p>
+				<img src="resources/images/Pipeline-example.png" alt="Exemple de Pipeline NLP">
+			</section>
+			<section>
+				<h2>Reconnaissance d'entités nommées</h2>
+				<ul>
+					<li>Repérer des groupes de mots</li>
+					<li>Définir le type d'entité : lieu, date, personne, organisation, édifice, etc.</li>
+				</ul>
+				<p class="citation">« L'association <strong class="ne-mention">Robin des Bois <small class="ne-label">organisation</small></strong>,
+					qui dénonce des « carences fautives » des autorités, a saisi le
+					<strong class="ne-mention">tribunal de grande instance de Paris <small class="ne-label">organisation</small></strong>. », <em>Le Point</em> 29/07/2019</p>
+			</section>
+			<section>
+				<h2>Désambiguïsation</h2>
+				<p>Relier les mentions d'entités à une base de connaissances</p>
+				<p class="citation">« L'association <strong class="ne-mention">Robin des Bois <small class="ne-label">organisation</small></strong>,
+					qui dénonce des « carences fautives » des autorités, a saisi le
+					<strong class="ne-mention">tribunal de grande instance de Paris <small class="ne-label">organisation</small></strong>. », <em>Le Point</em> 29/07/2019</p>
+				<table>
+					<tr>
+						<td>
+							<iframe data-src="https://fr.wikipedia.org/wiki/Robin_Wood_(association)" width="500" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="yes" class="iframe-in" allowfullscreen></iframe>
+						</td>
+						<td>
+							<iframe data-src="https://fr.wikipedia.org/wiki/Tribunal_de_grande_instance_de_Paris" width="500" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="yes" class="iframe-in" allowfullscreen></iframe>
+						</td>
+					</tr>
+				</table>
+			</section>
+			<section data-background="resources/images/Publication-insee-web.png">
+				<div class="iframe-box">
+					<h2>Les publications de l'<a href="https://insee.fr/fr/statistiques/4161181">Insee</a></h2>
+                    <p>Lieux, dates, <a href="http://rdf.insee.fr/sparql">Référentiel de Métadonnées Statistiques</a> (RMéS)</p>
+				</div>
+			</section>
+			<section data-background-iframe="https://ambiversenlu.mpi-inf.mpg.de">
+				<div class="iframe-box">
+					<h2>Démonstration...</h2>
+					<p>... avec un <b><a href="https://ambiversenlu.mpi-inf.mpg.de">projet de l'Institut Max Planck</a></b></p>
+				</div>
+			</section>
+		</section>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true }
-				]
-			});
-		</script>
-	</body>
+		<section>
+			<section>
+				<h1>Objectifs et finalité</h1>
+			</section>
+			<section>
+				<h2>Objectifs du stage</h2>
+				<ul>
+					<li>Enrichir le <b>Référentiel des Métadonnées Statistiques</b></li>
+					<li>Acquérir une connaissance sur les <b>outils TLN</b></li>
+					<li>Développer un premier service de <b>REN</b></li>
+				</ul>
+			</section>
+			<section>
+				<h2>Finalité</h2>
+				<ul>
+					<li>Pour l'<strong>Insee</strong> : Améliorer la qualité des publications</li>
+					<li>Pour mon <strong>projet professionel</strong> : </li>
+					<li>
+						<ul>
+							<li>Découvrir un administration publique réputée</li>
+							<li>Travailler sur des nouvelles technologies dans le domaine de l’IA</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h1>Démarche</h1>
+			</section>
+			<section>
+				<h2>Sommaire</h2>
+				<ul>
+					<li>Etude des données du <strong>référentiel</strong> et <strong>des publications de l'Insee </strong></li>
+					<li>La <strong>reconnaissance d'entités nommées</strong> avec les <strong>résultats du TLN</strong></li>
+					<li>Réalisations</li>
+				</ul>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h1>Etude des données</h1>
+			</section>
+			<section>
+				<h2>Les mentions de concepts statistiques dans les publications</h2>
+                <ul>
+                    <li>
+                        <p class="citation">« Fin 2017, le <strong class="ne-mention">patrimoine économique national net</strong> s’élève à 14 762 milliards d’euros,
+                            soit 7,9 fois le <strong class="ne-mention">produit intérieur net</strong> de l’année. », <em>Insee Première 1731</em>, 17/01/2019.
+                        </p>
+                        <p><b>Patrimoine national (comptabilité nationale)</b>, <b>Produit intéreur net</b></p>
+                    </li>
+                    <li>
+                        <p class="citation">« En 2018, l'activité des <strong class="ne-mention">secteurs commerciaux</strong> est contrastée. », <em>Insee Première 1759</em>, 21/06/2019</p>
+                        <p><b>Commerce</b></p>
+                    </li>
+                </ul>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h1>La reconnaissance d'entités nommées avec les résultats du TLN</h1>
+			</section>
+            <section>
+                <h2>Méthodes de REN</h2>
+                <ul>
+                    <li>
+						Annotation à base de <strong>règles</strong> :
+                        <ul>
+                            <li>Expression régulières et réutilisation des résultats du TLN</li>
+                            <li>Exemple : « Tous les noms propres commençant par un P »</li>
+                        </ul>
+                    </li>
+                    <li>
+						Annotation à base d'<strong>apprentissage automatique</strong> :
+                        <ul>
+                            <li>Entraînement d'un réseau de neurones à partir de textes annotés</li>
+                            <li>Contrainte de volumétrie et de représentativité des données d'entraînement</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>La méthode : <em>Lemmatisation</em> et <em>Part-of-seech (POS) tagging</em></h2>
+                <iframe data-src="https://corenlp.run" width="1000" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="yes" class="iframe-in" allowfullscreen></iframe>
+            </section>
+            <section>
+                <h2>La méthode</h2>
+                <img src="resources/images/Exemple-tokensregex.png" alt="Exemple de TokensRegex">
+            </section>
+			<section>
+				<h2>Prototype et premiers résultats</h2>
+				<pre>
+					<code>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;publication-sans-sommaire afficher-sommaire="true" afficher-sommaire-documentation="false"&gt;
+	&lt;titre&gt;Les petites et moyennes entreprises réalisent 17 % des exportations&lt;/titre&gt;
+	&lt;auteur&gt;Hervé Bacheré, direction des statistiques d’entreprises, Insee&lt;/auteur&gt;
+	&lt;numero&gt;1692&lt;/numero&gt;
+	&lt;chapo&gt;
+		&lt;paragraphe&gt;En 2015, les entreprises des secteurs marchands [...]&lt;paragraphe&gt;
+		&lt;paragraphe&gt;Chaque année, 40 à 50 000 entreprises exportent [...]&lt;/paragraphe&gt;
+	&lt;/chapo&gt;
+	...
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h2>Prototype et premiers résultats</h2>
+				<embed src="resources/embed/ip1692-demo.htm" width="1000" height="400">
+			</section>
+			<section>
+				<h2>Services à développer</h2>
+				<img src="resources/images/Archi-pipeline-web.png" alt="Architecture fonctionnelle du premier service de REN">
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h1>Réalisations</h1>
+			</section>
+			<section>
+				<h2>Le Pipeline TLN</h2>
+				<img src="resources/images/InspaCy-archi.png" alt="Architecture du service InspaCy">
+			</section>
+			<section data-background-iframe="http://localhost:5000/demo">
+				<div class="iframe-box">
+					<h2>Démonstration</h2>
+				</div>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h1>Conclusion</h1>
+			</section>
+			<section>
+				<h2>Résultats</h2>
+				<ul>
+					<li>Un prototype <strong>Core NLP</strong> ayant quelques lacunes</li>
+					<li>Un premier service web <strong>SpaCy</strong> fonctionnel</li>
+					<li>Une première experience dans le TLN</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Objectifs</h2>
+				<ul>
+					<li>Enrichir le <strong>Référentiel des Métadonnées Statistiques</strong></li>
+					<li><strike>Acquérir une connaissance sur les <strong>outils TLN</strong></strike></li>
+					<li><strike>Développer un premier service de <strong>TLN</strong></strike></li>
+				</ul>
+			</section>
+			<section>
+				<h2>Perspectives</h2>
+				<iframe data-src="https://prodi.gy/demo?view_id=ner" width="1000" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="yes" class="iframe-in" allowfullscreen></iframe>
+			</section>
+			<section>
+				<h2>Perspectives</h2>
+				<ul>
+					<li>Effectuer une comparaison des deux services</li>
+					<li>Générer des règles à partir du résultat <em>Dependencies</em></li>
+					<li>Ré-entraîner les modèles de réseaux de neurones fournis par <strong>SpaCy</strong></li>
+				</ul>
+			</section>
+			<section>
+				<h1>Des questions ?</h1>
+			</section>
+		</section>
+	</div>
+</div>
+
+<script src="js/reveal.js"></script>
+
+<script>
+	// More info about config & dependencies:
+	// - https://github.com/hakimel/reveal.js#configuration
+	// - https://github.com/hakimel/reveal.js#dependencies
+	Reveal.initialize({
+		slideNumber: true,
+		dependencies: [
+			{ src: 'plugin/markdown/marked.js' },
+			{ src: 'plugin/markdown/markdown.js' },
+			{ src: 'plugin/notes/notes.js', async: true },
+			{ src: 'plugin/highlight/highlight.js', async: true }
+		]
+	});
+</script>
+</body>
 </html>
